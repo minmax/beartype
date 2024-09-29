@@ -160,11 +160,18 @@ def beartype_type(
 
     # For the unqualified name and value of each direct (i.e., *NOT* indirectly
     # inherited) attribute of this class...
-    for attr_name, attr_value in cls.__dict__.items():  # pyright: ignore[reportGeneralTypeIssues]
+    for attr_name, original_attr_value in cls.__dict__.items():  # pyright: ignore[reportGeneralTypeIssues]
         # True only if this attribute is directly beartypeable (e.g., is either
         # a function, class, or builtin method descriptor).
-        is_attr_beartypeable = isinstance(attr_value, TYPES_BEARTYPEABLE)
+        is_attr_beartypeable = isinstance(original_attr_value, TYPES_BEARTYPEABLE)
 
+        if is_attr_beartypeable:
+            # Еhe direct value of this attribute *WITHOUT* regard to
+            # dynamic descriptor lookup, which in the case of a standard
+            # descriptor builtin like @classmethod is that C-based @classmethod
+            # descriptor itself) with the dynamic value of this attribute
+
+            attr_value = original_attr_value
         # If this attribute is *NOT* directly beartypeable (e.g., is neither a
         # function, class, nor builtin method descriptor), this attribute
         # *COULD* still be indirectly beartypeable. How? By being a non-standard
@@ -183,15 +190,8 @@ def beartype_type(
         #     https://github.com/patrick-kidger/equinox/issues/584#issuecomment-1806260288
         #
         # Specifically, if this attribute is *NOT* directly beartypeable...
-        if not is_attr_beartypeable:
-            # Uncomment to debug this insanity. *sigh*
-            # attr_value_old = attr_value
-
-            # Override the previously retrieved static value of this attribute
-            # (i.e., the direct value of this attribute *WITHOUT* regard to
-            # dynamic descriptor lookup, which in the case of a standard
-            # descriptor builtin like @classmethod is that C-based @classmethod
-            # descriptor itself) with the dynamic value of this attribute
+        else:
+            # The dynamic value of this attribute
             # (i.e., the indirect value of this attribute *WITH* regard to
             # dynamic descriptor lookup, which in the case of a standard
             # descriptor builtin like @classmethod is the pure-Python function

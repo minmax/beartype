@@ -1336,9 +1336,10 @@ def make_check_expr(
                                 ),
                             ))
 
-                    # For the 0-based index and each child hint of this union...
-                    for hint_child_index, hint_child in enumerate(
-                        hint_childs_pep):
+                    # The 0-based index for each child hint of this union...
+                    for hint_child_index, looped_hint_child in enumerate(hint_childs_pep):
+                        # Create closure for _enqueue_hint_child
+                        hint_child = looped_hint_child
                         # Code deeply type-checking this child hint.
                         func_curr_code += CODE_PEP484604_UNION_CHILD_PEP_format(
                             # Expression yielding the value of this pith.
@@ -1560,14 +1561,14 @@ def make_check_expr(
 
                         # For each possibly ignorable insane child hint of this
                         # parent tuple...
-                        for hint_child_index, hint_child in enumerate(
+                        for hint_child_index, non_sanified_hint_child in enumerate(
                             hint_childs):
                             # Unignorable sane child hint sanified from this
                             # possibly ignorable insane child hint *OR* "None"
                             # otherwise (i.e., if this child hint is ignorable).
                             hint_child = (
                                 sanify_hint_child_if_unignorable_or_none(
-                                    hint=hint_child,
+                                    hint=non_sanified_hint_child,
                                     conf=conf,
                                     cls_stack=cls_stack,
                                     exception_prefix=EXCEPTION_PREFIX,
@@ -2129,14 +2130,19 @@ def make_check_expr(
 
                     # For each unignorable unerased transitive pseudo-superclass
                     # originally declared as a superclass of this generic...
-                    for hint_child in (
+                    for looped_hint_child in (
                         iter_hint_pep484585_generic_bases_unerased_tree(
                             hint=hint_curr,
                             conf=conf,
                             exception_prefix=EXCEPTION_PREFIX,
                     )):
-                        # print(f'Visiting generic type hint {repr(hint_curr)} unerased base {repr(hint_child)}...')
+                        # print(
+                        #     f'Visiting generic type hint {repr(hint_curr)}'
+                        #     f' unerased base {repr(looped_hint_child)}...'
+                        # )
 
+                        # Create closure for _enqueue_hint_child
+                        hint_child = looped_hint_child
                         # Generate and append code type-checking this pith
                         # against this superclass.
                         func_curr_code += CODE_PEP484585_GENERIC_CHILD_format(

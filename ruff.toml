@@ -20,17 +20,10 @@ ignore = [
     "ANN003", # [] missing-type-kwargs
     "B009", # [*] get-attr-with-constant
     "D413", # [*] blank-line-after-last-section
-    "FURB140", # [*] reimplemented-starmap
-    "PLR5501", # [*] collapsible-else-if
-    "RUF021", # [*] parenthesize-chained-operators
-    "SIM110", # [*] reimplemented-builtin
     # Manual fixup:
     "ANN001", # []  Missing type annotation for function argument
     "ANN202", # [ ] missing-return-type-private-function
     "ANN204", # [ ] missing-return-type-special-method
-    "ANN206", # [ ] missing-return-type-class-method
-    "B007", # [ ] unused-loop-control-variable
-    "B021", # [ ] f-string-docstring
     "B028", # [ ] no-explicit-stacklevel
     "DOC202", # [ ] docstring-extraneous-returns 
     "DOC402", # [ ] docstring-missing-yields
@@ -38,17 +31,13 @@ ignore = [
     "F401", # [ ] unused-import
     "F821", # [ ] undefined-name
     "FBT003", # [ ] Boolean positional value in function call
-    "ISC001", # [ ] single-line-implicit-string-concatenation
     "N802", # Function name `visit_Lambda` should be lowercase
     "N812", # Lowercase imported as non-lowercase
     "PLC2801", # [ ] unnecessary-dunder-call
     "PLR1704", # [ ] redefined-argument-from-local
-    "PLW2901", # [ ] redefined-loop-name
-    "PT018", # [ ] pytest-composite-assertion
     "RUF005", # [ ] collection-literal-concatenation
     "SIM103", # [ ] needless-bool
     "SLOT001", # [ ] no-slots-in-tuple-subclass
-    "TRY301", # [ ] raise-within-try
     # Needs desision and will be auto-fixed:
     "B006", # [*] mutable-argument-default
     "D212", # [*] multi-line-summary-first-line
@@ -92,6 +81,7 @@ ignore = [
     # beartype/claw/_ast/*.py: 6 N802 [ ] invalid-function-name
     # Ignore by inline-noqa:
     "T201", # [*] print
+    "N802", # Function name should be lowercase
     # Will be ignored:
     "ANN401", # [ ] Dynamically typed expressions (typing.Any) are disallowed
     "ARG001", # [] Unused function argument
@@ -143,6 +133,7 @@ ignore = [
     "TD002", # [] Missing author in TODO; try: `# TODO(<author_name>): ...` or `# TODO @<author_name>: ...`
     "TD003", # [] Missing issue link on the line following this TODO
     "TRY003", # [] Avoid specifying long messages outside the exception class
+    "TRY301", # [] Abstract `raise` to an inner function
 ]
 extend-safe-fixes = [
     "TCH", # flake8-type-checking. TYPE_CHECKING support
@@ -176,6 +167,10 @@ allow-star-arg-any = true
 "!**/beartype_test/*" = ["PT017"] # Checks for assert statements in except clauses.
 "**/beartype_test/*" = ["RUF018"] # Checks for named assignment expressions (e.g., x := 0) in assert statements.
 "beartype/claw/_ast/*.py"=["N802"] # Function name should be lowercase
+"beartype/*.py"=[
+    "PT018", # Assertion should be broken down into multiple parts
+]
+
 
 [lint.flake8-type-checking]
 exempt-modules = ["typing", "typing_extensions"]

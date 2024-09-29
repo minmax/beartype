@@ -18,6 +18,7 @@ from beartype._util.utilobject import Iota
 from beartype.roar import BeartypeDecorHintPep585Exception
 from beartype.typing import (
     Any,
+    Literal,
     Set,
 )
 
@@ -106,7 +107,7 @@ if IS_PYTHON_AT_LEAST_3_9:
 
         # Tuple of all pseudo-superclasses originally subclassed by the passed
         # hint if this hint is a generic *OR* false otherwise.
-        hint_bases_erased = getattr(hint, '__orig_bases__', False)
+        hint_bases_erased: Any | Literal[False] = getattr(hint, '__orig_bases__', False)
 
         # If this hint subclasses *NO* pseudo-superclasses, this hint *CANNOT*
         # be a generic. In this case, immediately return false.
@@ -135,17 +136,10 @@ if IS_PYTHON_AT_LEAST_3_9:
         # __class_getitem__() dunder method. Since this condition suffices to
         # ensure that this hint is a PEP 585-compliant generic, however, there
         # exists little benefit to doing so.
-        for hint_base_erased in hint_bases_erased:  # type: ignore[union-attr]
-            # If this pseudo-superclass is itself a PEP 585-compliant C-based
-            # subscripted generic (e.g., "list[str]"), return true.
-            if is_hint_pep585_builtin_subscripted(hint_base_erased):
-                return True
-            # Else, this pseudo-superclass is *NOT* PEP 585-compliant. In this
-            # case, continue to the next pseudo-superclass.
 
-        # Since *NO* such pseudo-superclasses are PEP 585-compliant, this hint
-        # is *NOT* a PEP 585-compliant generic. In this case, return false.
-        return False
+        # If one of pseudo-superclasses is itself a PEP 585-compliant C-based
+        # subscripted generic (e.g., "list[str]"), return true.
+        return any(is_hint_pep585_builtin_subscripted(hint_base_erased) for hint_base_erased in hint_bases_erased)
 
 # Else, the active Python interpreter targets at most Python < 3.9 and thus
 # fails to support PEP 585. In this case, fallback to declaring this function

@@ -272,12 +272,6 @@ class _IsAttrFactory(_BeartypeValidatorFactoryABC):
             # Else, this name is a valid Python identifier.
 
             def is_valid(pith: Any) -> bool:
-                f'''
-                :data:`True` only if the passed object defines an attribute
-                named "{attr_name}" whose value satisfies the validator
-                {attr_validator!r}.
-                '''
-
                 # Attribute of this object with this name if this object
                 # defines such an attribute *OR* a sentinel placeholder
                 # otherwise (i.e., if this object defines *NO* such attribute).
@@ -290,6 +284,11 @@ class _IsAttrFactory(_BeartypeValidatorFactoryABC):
                     # This attribute satisfies this validator.
                     attr_validator.is_valid(pith_attr)
                 )
+
+            is_valid.__doc__ = f''':data:`True` only if the passed object defines an attribute
+named "{attr_name}" whose value satisfies the validator
+{attr_validator!r}.
+'''
 
             # Names of new parameters added to the signature of wrapper
             # functions enabling this validator to be tested in those functions

@@ -141,7 +141,7 @@ class BoolType(metaclass=ABCMeta):
         return False
 
     @classmethod
-    def __subclasshook__(cls, C):
+    def __subclasshook__(cls, C) -> bool:
         if cls is BoolType:
             return _check_methods(C, '__bool__')
         return NotImplemented
