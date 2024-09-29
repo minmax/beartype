@@ -24,7 +24,6 @@ ignore = [
     "ANN001", # []  Missing type annotation for function argument
     "ANN202", # [ ] missing-return-type-private-function
     "ANN204", # [ ] missing-return-type-special-method
-    "B007", # [ ] unused-loop-control-variable
     "B021", # [ ] f-string-docstring
     "B028", # [ ] no-explicit-stacklevel
     "DOC202", # [ ] docstring-extraneous-returns 

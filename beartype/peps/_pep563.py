@@ -199,7 +199,7 @@ def resolve_pep563(
     #
     # For the name of each annotated parameter and return of the passed callable
     # and the type hint annotating that parameter or return...
-    for arg_name, hint in arg_name_to_hint.items():
+    for hint in arg_name_to_hint.values():
         # If this hint is *NOT* stringified, this hint was either:
         # * Never postponed under PEP 563 (i.e., the module defining that
         #   callable did *NOT* import "from __future__ import annotations").
