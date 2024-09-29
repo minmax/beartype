@@ -1560,14 +1560,14 @@ def make_check_expr(
 
                         # For each possibly ignorable insane child hint of this
                         # parent tuple...
-                        for hint_child_index, hint_child in enumerate(
+                        for hint_child_index, non_sanified_hint_child in enumerate(
                             hint_childs):
                             # Unignorable sane child hint sanified from this
                             # possibly ignorable insane child hint *OR* "None"
                             # otherwise (i.e., if this child hint is ignorable).
                             hint_child = (
                                 sanify_hint_child_if_unignorable_or_none(
-                                    hint=hint_child,
+                                    hint=non_sanified_hint_child,
                                     conf=conf,
                                     cls_stack=cls_stack,
                                     exception_prefix=EXCEPTION_PREFIX,

@@ -38,16 +38,13 @@ ignore = [
     "F821", # [ ] undefined-name
     "FBT003", # [ ] Boolean positional value in function call
     "ISC001", # [ ] single-line-implicit-string-concatenation
-    "N802", # Function name `visit_Lambda` should be lowercase
     "N812", # Lowercase imported as non-lowercase
     "PLC2801", # [ ] unnecessary-dunder-call
     "PLR1704", # [ ] redefined-argument-from-local
-    "PLW2901", # [ ] redefined-loop-name
     "PT018", # [ ] pytest-composite-assertion
     "RUF005", # [ ] collection-literal-concatenation
     "SIM103", # [ ] needless-bool
     "SLOT001", # [ ] no-slots-in-tuple-subclass
-    "TRY301", # [ ] raise-within-try
     # Needs desision and will be auto-fixed:
     "B006", # [*] mutable-argument-default
     "D212", # [*] multi-line-summary-first-line
@@ -91,6 +88,7 @@ ignore = [
     # beartype/claw/_ast/*.py: 6 N802 [ ] invalid-function-name
     # Ignore by inline-noqa:
     "T201", # [*] print
+    "N802", # Function name should be lowercase
     # Will be ignored:
     "ANN401", # [ ] Dynamically typed expressions (typing.Any) are disallowed
     "ARG001", # [] Unused function argument
@@ -142,6 +140,7 @@ ignore = [
     "TD002", # [] Missing author in TODO; try: `# TODO(<author_name>): ...` or `# TODO @<author_name>: ...`
     "TD003", # [] Missing issue link on the line following this TODO
     "TRY003", # [] Avoid specifying long messages outside the exception class
+    "TRY301", # [] Abstract `raise` to an inner function
 ]
 extend-safe-fixes = [
     "TCH", # flake8-type-checking. TYPE_CHECKING support
