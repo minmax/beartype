@@ -20,8 +20,6 @@ ignore = [
     "ANN003", # [] missing-type-kwargs
     "B009", # [*] get-attr-with-constant
     "D413", # [*] blank-line-after-last-section
-    "FURB140", # [*] reimplemented-starmap
-    "PLR5501", # [*] collapsible-else-if
     # Manual fixup:
     "ANN001", # []  Missing type annotation for function argument
     "ANN202", # [ ] missing-return-type-private-function
