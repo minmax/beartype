@@ -37,11 +37,10 @@ ignore = [
     "F401", # [ ] unused-import
     "F821", # [ ] undefined-name
     "FBT003", # [ ] Boolean positional value in function call
-    "ISC001", # [ ] single-line-implicit-string-concatenation
+    "N802", # Function name `visit_Lambda` should be lowercase
     "N812", # Lowercase imported as non-lowercase
     "PLC2801", # [ ] unnecessary-dunder-call
     "PLR1704", # [ ] redefined-argument-from-local
-    "PT018", # [ ] pytest-composite-assertion
     "RUF005", # [ ] collection-literal-concatenation
     "SIM103", # [ ] needless-bool
     "SLOT001", # [ ] no-slots-in-tuple-subclass
@@ -174,6 +173,10 @@ allow-star-arg-any = true
 "!**/beartype_test/*" = ["PT017"] # Checks for assert statements in except clauses.
 "**/beartype_test/*" = ["RUF018"] # Checks for named assignment expressions (e.g., x := 0) in assert statements.
 "beartype/claw/_ast/*.py"=["N802"] # Function name should be lowercase
+"beartype/*.py"=[
+    "PT018", # Assertion should be broken down into multiple parts
+]
+
 
 [lint.flake8-type-checking]
 exempt-modules = ["typing", "typing_extensions"]
