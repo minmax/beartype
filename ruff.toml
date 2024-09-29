@@ -23,7 +23,6 @@ ignore = [
     "FURB140", # [*] reimplemented-starmap
     "PLR5501", # [*] collapsible-else-if
     "RUF021", # [*] parenthesize-chained-operators
-    "SIM110", # [*] reimplemented-builtin
     # Manual fixup:
     "ANN001", # []  Missing type annotation for function argument
     "ANN202", # [ ] missing-return-type-private-function

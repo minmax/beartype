@@ -158,14 +158,7 @@ def is_identifier(text: str) -> bool:
     #           return True
     #       except SyntaxError:
     #           return False
-    for text_basename in text.split('.'):
-        # If this "."-delimited substring is *NOT* a valid unqualified Python
-        # identifier, return false.
-        if not text_basename.isidentifier():
-            return False
-        # Else, this "."-delimited substring is a valid unqualified Python
-        # identifier. In this case, silently continue to the next.
 
-    # Return true, since *ALL* "."-delimited substrings split from this string
+    # Return true, if *ALL* "."-delimited substrings split from this string
     # are valid unqualified Python identifiers.
-    return True
+    return all(text_basename.isidentifier() for text_basename in text.split('.'))

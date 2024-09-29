@@ -265,12 +265,7 @@ def is_hint_pep484604_union_ignorable(hint: object) -> bool:
 
     # Return true only if one or more child hints of this union are recursively
     # ignorable. See the function docstring.
-    for hint_child in get_hint_pep_args(hint):
-        if is_hint_ignorable(hint_child):
-            return True
-
-    # Return false as a fallback.
-    return False
+    return any(is_hint_ignorable(hint_child) for hint_child in get_hint_pep_args(hint))
 
 
 # ....................{ FACTORIES                          }....................
