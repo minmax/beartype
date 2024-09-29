@@ -175,15 +175,6 @@ def callable_cached(func: CallableT) -> CallableT:
 
     @wraps(func)
     def _callable_cached(*args):
-        f'''
-        Memoized variant of the {func.__name__}() callable.
-
-        See Also
-        --------
-        :func:`callable_cached`
-            Further details.
-        '''
-
         # Object representing all passed positional arguments to be used as the
         # key of various memoized dictionaries, defined as either...
         args_flat = (
@@ -259,6 +250,14 @@ def callable_cached(func: CallableT) -> CallableT:
 
         # Return this value.
         return return_value
+
+    _callable_cached.__doc__ = f'''Memoized variant of the {func.__name__}() callable.
+
+See Also
+--------
+:func:`callable_cached`
+    Further details.
+'''
 
     # Return this wrapper.
     return _callable_cached  # type: ignore[return-value]
@@ -401,15 +400,6 @@ def method_cached_arg_by_id(func: CallableT) -> CallableT:
 
     @wraps(func)
     def _method_cached(self_or_cls, arg):
-        f'''
-        Memoized variant of the {func.__name__}() callable.
-
-        See Also
-        --------
-        :func:`callable_cached`
-            Further details.
-        '''
-
         # Object identifiers of the sole positional parameters passed to the
         # decorated method.
         args_flat = (id(self_or_cls), id(arg))
@@ -476,6 +466,14 @@ def method_cached_arg_by_id(func: CallableT) -> CallableT:
 
         # Return this value.
         return return_value
+
+    _method_cached.__doc__ = f'''Memoized variant of the {func.__name__}() callable.
+
+See Also
+--------
+:func:`callable_cached`
+    Further details.
+'''
 
     # Return this wrapper.
     return _method_cached  # type: ignore[return-value]

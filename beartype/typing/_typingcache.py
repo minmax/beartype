@@ -90,15 +90,6 @@ def callable_cached_minimal(func: Callable) -> Callable:
 
     @wraps(func)
     def _callable_cached(*args):
-        f'''
-        Memoized variant of the {func.__name__}() callable.
-
-        See Also
-        ----------
-        :func:`callable_cached`
-            Further details.
-        '''
-
         # If passed only one positional argument, minimize space consumption by
         # flattening this tuple of only that argument into that argument. Since
         # tuple items are necessarily hashable, this argument is necessarily
@@ -171,6 +162,14 @@ def callable_cached_minimal(func: Callable) -> Callable:
 
         # Return this value.
         return return_value
+
+    _callable_cached.__doc__ = f'''Memoized variant of the {func.__name__}() callable.
+
+See Also
+----------
+:func:`callable_cached`
+    Further details.
+'''
 
     # Return this wrapper.
     return _callable_cached
