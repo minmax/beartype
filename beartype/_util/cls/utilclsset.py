@@ -72,13 +72,13 @@ def set_type_attr(cls: type, attr_name: str, attr_value: object) -> None:
             # The active Python interpreter targets Python >= 3.10, match a
             # message of the form "cannot set '{attr_name}' attribute of
             # immutable type '{cls_name}'".
-            IS_PYTHON_AT_LEAST_3_10 and (
+            (IS_PYTHON_AT_LEAST_3_10 and (
                 exception_message.startswith("cannot set '") and
                 "' attribute of immutable type " in exception_message
             # Else, the active Python interpreter targets Python <= 3.9. In this
             # case, match a message of the form "can't set attributes of
             # built-in/extension type '{cls_name}'".
-            ) or exception_message.startswith(
+            )) or exception_message.startswith(
                 "can't set attributes of built-in/extension type '")
         ):
             return
